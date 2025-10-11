@@ -1,8 +1,8 @@
 
 from aiogram import Bot, Dispatcher, executor, types
 from scripts.youtube import download as ytDownload
-from scripts.instagram import instagram_video as instaDownload
-from scripts.instagram import instagram_audio as insta_Audio
+# from scripts.instagram import instagram_video as instaDownload
+# from scripts.instagram import instagram_audio as insta_Audio
 from scripts.facebook import download as fbDownload
 import os
 import shutil
@@ -92,23 +92,23 @@ async def linkHandler(msg: types.Message):
 
 #Instagram
 
-    elif "instagram.com/p/" in url or "instagram.com/reel/" in url:
-        await msg.reply("📸 Обработка Instagram видео, подожди...")
+    # elif "instagram.com/p/" in url or "instagram.com/reel/" in url:
+    #     await msg.reply("📸 Обработка Instagram видео, подожди...")
 
-        try:
-            video_path = instaDownload(url, session_id)
-            audio_path = insta_Audio(video_path)
+    #     try:
+    #         video_path = instaDownload(url, session_id)
+    #         audio_path = insta_Audio(video_path)
 
-            async with bot.session:
-                with open(video_path, 'rb') as videoFile:
-                    await bot.send_video(msg.chat.id, video=videoFile, caption='✅ Instagram video downloaded from @some_think_bot')
-                with open(audio_path, 'rb') as audioFile:
-                    await bot.send_audio(msg.chat.id, audio=audioFile, caption='🎵 Instagram audio downloaded from @some_think_bot')
+    #         async with bot.session:
+    #             with open(video_path, 'rb') as videoFile:
+    #                 await bot.send_video(msg.chat.id, video=videoFile, caption='✅ Instagram video downloaded from @some_think_bot')
+    #             with open(audio_path, 'rb') as audioFile:
+    #                 await bot.send_audio(msg.chat.id, audio=audioFile, caption='🎵 Instagram audio downloaded from @some_think_bot')
 
-        except Exception as e:
-            await msg.reply(f"❌ Ошибка при скачивании: {e}")
-        finally:
-            shutil.rmtree(f"./media_temp/{session_id}", ignore_errors=True)
+    #     except Exception as e:
+    #         await msg.reply(f"❌ Ошибка при скачивании: {e}")
+    #     finally:
+    #         shutil.rmtree(f"./media_temp/{session_id}", ignore_errors=True)
 
     else:
         await msg.reply("⚠️ Я принимаю только ссылки с YouTube и Instagram.")
