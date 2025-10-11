@@ -54,6 +54,39 @@ async def linkHandler(msg: types.Message):
         finally:
             shutil.rmtree(f"./media_temp/{session_id}", ignore_errors=True)
 
+# Facebook
+    elif url.startswith("https://www.facebook.com/") or url.startswith("https://fb.watch/"):
+        await msg.reply("📸 Обработка Facebook видео, подожди...")
+
+        try:
+            audio_path, video_path, output_path = fbDownload(url, session_id)
+
+            if not os.path.exists(output_path):
+                await msg.reply("❌ Видео файл не найден.")
+                return
+            if not os.path.exists(audio_path):
+                await msg.reply("❌ Аудио файл не найден.")
+                return
+
+            with open(output_path, "rb") as video_file:
+                await bot.send_video(
+                    msg.chat.id,
+                    video=video_file,
+                    caption="✅ Видео с Facebook загружено с @some_think_bot",
+                )
+
+            with open(audio_path, "rb") as audio_file:
+                await bot.send_audio(
+                    msg.chat.id,
+                    audio=audio_file,
+                    caption="🎵 Аудио Facebook скачано с @some_think_bot",
+                )
+
+        except Exception as e:
+            await msg.reply(f"❌ Ошибка при скачивании: {e}")
+
+        finally:
+            shutil.rmtree(f"./media_temp/{session_id}", ignore_errors=True)
     
 
 #Instagram
