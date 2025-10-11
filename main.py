@@ -3,6 +3,7 @@ from aiogram import Bot, Dispatcher, executor, types
 from scripts.youtube import download as ytDownload
 from scripts.instagram import instagram_video as instaDownload
 from scripts.instagram import instagram_audio as insta_Audio
+from scripts.facebook import download as fbDownload
 import os
 import shutil
 import uuid
