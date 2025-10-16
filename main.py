@@ -111,7 +111,7 @@ async def linkHandler(msg: types.Message):
             shutil.rmtree(f"./media_temp/{session_id}", ignore_errors=True)
 
     else:
-        await msg.reply("⚠️ Я принимаю только ссылки с YouTube и Instagram.")
+        await msg.reply("⚠️ Я принимаю только ссылки с YouTube,Facebook и Instagram.")
 
 
 async def on_startup(dp):
